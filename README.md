@@ -44,7 +44,6 @@ rm -rf ./secondary2/data/*
 
 ```
 docker exec mysql_primary sh -c 'SELECT * FROM performance_schema.replication_group_members;"'
-docker exec mysql_primary sh -c 'SHOW SLAVE HOSTS;"'
 
 ```
 
