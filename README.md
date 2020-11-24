@@ -13,7 +13,7 @@ and after starting setup replication. See commands inside ./build.sh.
 ```
 ./build.sh
 
-
+```
 ## Troubleshooting
 
 #### Check Logs
