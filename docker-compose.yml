@@ -1,0 +1,55 @@
+version: '3'
+services:
+  mysql_primary:
+    image: mysql:5.7
+    hostname: primary
+    env_file:
+      - ./primary/mysql_primary.env
+    container_name: "mysql_primary"
+    restart: "no"
+    ports:
+      - 9506:3306
+      - 9505:33061
+    volumes:
+      - ./primary/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./primary/data:/var/lib/mysql
+    networks:
+      - overlay
+  mysql_secondary:
+    image: mysql:5.7
+    hostname: secondary
+    env_file:
+      - ./secondary/mysql_secondary.env
+    container_name: "mysql_secondary"
+    restart: "no"
+    ports:
+      - 7506:3306
+      - 7505:33061
+    depends_on:
+      - mysql_primary
+    volumes:
+      - ./secondary/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./secondary/data:/var/lib/mysql
+    networks:
+      - overlay
+  mysql_secondary2:
+    image: mysql:5.7
+    hostname: secondary2
+    env_file:
+      - ./secondary2/mysql_secondary2.env
+    container_name: "mysql_secondary2"
+    restart: "no"
+    ports:
+      - 8506:3306
+      - 8505:33061
+    depends_on:
+      - mysql_primary
+    volumes:
+      - ./secondary2/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./secondary2/data:/var/lib/mysql
+    networks:
+      - overlay
+      
+networks:
+  overlay:
+
